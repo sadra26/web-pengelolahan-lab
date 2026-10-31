@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>LabManager Pro - Dashboard Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background-color: #f8f9ff;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 10px;
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary": "#ffffff",
+              tertiary: "#00311f",
+              "on-tertiary-fixed": "#002113",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              error: "#ba1a1a",
+              "inverse-surface": "#213145",
+              "inverse-primary": "#b6c4ff",
+              "on-tertiary": "#ffffff",
+              "primary-container": "#1e3a8a",
+              "on-primary-fixed-variant": "#264191",
+              "surface-variant": "#d3e4fe",
+              "on-secondary-container": "#616363",
+              "tertiary-fixed-dim": "#4edea3",
+              "surface-tint": "#4059aa",
+              "surface-container-low": "#eff4ff",
+              "on-secondary-fixed": "#1a1c1c",
+              secondary: "#5d5f5f",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container-highest": "#d3e4fe",
+              outline: "#757682",
+              "primary-fixed-dim": "#b6c4ff",
+              "tertiary-fixed": "#6ffbbe",
+              "surface-dim": "#cbdbf5",
+              "secondary-container": "#dfe0e0",
+              "on-tertiary-fixed-variant": "#005236",
+              "surface-container-high": "#dce9ff",
+              "primary-fixed": "#dce1ff",
+              "outline-variant": "#c5c5d3",
+              "on-tertiary-container": "#27c38a",
+              "surface-bright": "#f8f9ff",
+              surface: "#f8f9ff",
+              "on-secondary-fixed-variant": "#454747",
+              "on-primary-container": "#90a8ff",
+              "tertiary-container": "#004a31",
+              "on-background": "#0b1c30",
+              "on-surface": "#0b1c30",
+              "error-container": "#ffdad6",
+              "secondary-fixed-dim": "#c6c6c7",
+              background: "#f8f9ff",
+              "secondary-fixed": "#e2e2e2",
+              primary: "#00236f",
+              "surface-container": "#e5eeff",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed": "#00164e",
+              "on-secondary": "#ffffff",
+              "on-surface-variant": "#444651",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              gutter: "20px",
+              xs: "4px",
+              sm: "8px",
+              lg: "24px",
+              "container-padding-desktop": "32px",
+              base: "4px",
+              "container-padding-mobile": "16px",
+              md: "16px",
+              xl: "32px",
+            },
+            fontFamily: {
+              "label-md": ["Be Vietnam Pro"],
+              "body-lg": ["Be Vietnam Pro"],
+              "headline-lg-mobile": ["Be Vietnam Pro"],
+              "headline-md": ["Be Vietnam Pro"],
+              "headline-sm": ["Be Vietnam Pro"],
+              "body-md": ["Be Vietnam Pro"],
+              "headline-lg": ["Be Vietnam Pro"],
+              "body-sm": ["Be Vietnam Pro"],
+              "label-sm": ["Be Vietnam Pro"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  letterSpacing: "0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+              "headline-lg-mobile": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "700" },
+              ],
+              "headline-md": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "600" },
+              ],
+              "headline-sm": [
+                "20px",
+                { lineHeight: "28px", fontWeight: "600" },
+              ],
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "40px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+              "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+
+  <body class="bg-background text-on-surface">
+    <!-- TopAppBar -->
+    <header
+      class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim text-primary dark:text-primary-fixed shadow-sm dark:shadow-none border-b border-outline-variant dark:border-outline flex items-center justify-between px-md h-16"
+    >
+      <div class="flex items-center gap-md">
+        <button
+          id="desktopMenuToggle"
+          aria-label="Toggle navigation menu"
+          aria-controls="desktopNavDrawer"
+          aria-expanded="true"
+          class="inline-flex material-symbols-outlined cursor-pointer p-2 hover:bg-surface-container-high rounded-full transition-colors focus:outline-none"
+        >
+          menu
+        </button>
+        <span class="font-headline-md text-headline-md font-bold"
+          >LabManager Pro</span
+        >
+      </div>
+
+      <a href="/settings">
+        <img
+          alt="Profile"
+          class="w-10 h-10 rounded-full border-2 border-primary-container object-cover"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgkIaSKTZN623on0EWRMj8WOCx1vTN3vyt5yn1bwWWd7jFlKc78jxxN5y5kfJ1-w-yc07odQtbTI-pmTelD3nsPstuqg-qlftJd0FQA9kX2Dw47MJYQhnSjdHRdDAitDzS__lXaBqOCIv1WRIownlQqdYZ5cKrca7bQc3xU3MQ7fDwXXDedhhN9weNR5eK7MrMJz39GoOLM2zE4hyZQf0i23ByHAvba3zBYIna_ujE-A1OAnHIBS9ZHgzMFDSs-MvrTsh9kx6Mh6R3"
+        />
+      </a>
+    </header>
+
+    <div class="flex pt-16 min-h-screen">
+      <!-- NavigationDrawer (Desktop) -->
+      <aside
+        id="desktopNavDrawer"
+        class="fixed left-0 top-0 h-full w-[280px] flex flex-col bg-surface dark:bg-surface-container-low border-r border-outline-variant dark:border-outline shadow-md dark:shadow-none py-lg z-40 pt-20 -translate-x-full transition-transform duration-300 bg-surface border-r border-outline-variant"
+      >
+        <div class="px-md mb-lg">
+          <div
+            class="flex items-center gap-md p-md bg-surface-container rounded-xl border border-outline-variant/30"
+          >
+            <div
+              class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-on-primary"
+            >
+              <span class="material-symbols-outlined">school</span>
+            </div>
+            <div>
+              <h3 class="font-label-md text-label-md text-on-surface font-bold">
+                Admin
+              </h3>
+              <p class="text-[12px] text-on-surface-variant">
+                Departemen Lab Komputer
+              </p>
+            </div>
+          </div>
+        </div>
+        <nav class="flex-1 space-y-1 px-md">
+          <a
+            class="flex items-center gap-md bg-secondary-container text-on-secondary-container border-l-4 border-tertiary-fixed-dim px-md py-sm rounded-xl transition-all duration-200"
+            href="/dashboard"
+          >
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-label-md text-label-md">Dashboard</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/borrowers"
+          >
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-label-md text-label-md">Peminjam</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/computers"
+          >
+            <span class="material-symbols-outlined">computer</span>
+            <span class="font-label-md text-label-md">Komputer</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/loanhistory"
+          >
+            <span class="material-symbols-outlined">sync_alt</span>
+            <span class="font-label-md text-label-md">Pinjaman</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/settings"
+          >
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-md text-label-md">Pengaturan</span>
+          </a>
+        </nav>
+        <div class="mt-auto px-md py-md border-t border-outline-variant">
+          <p
+            class="text-[10px] uppercase tracking-widest text-outline font-bold"
+          >
+            Pusat Kampus
+          </p>
+        </div>
+      </aside>
+
+      <!-- Main Content Canvas -->
+      <main
+        id="mainContent"
+        class="w-full pt-8 pb-24 lg:pb-8 transition-all duration-300 px-container-padding-mobile lg:px-container-padding-desktop min-h-screen"
+      >
+        <!-- Centering wrapper: keeps the whole dashboard content in the middle of the page -->
+        <div class="max-w-6xl mx-auto">
+          <!-- Welcome Header -->
+          <div
+            class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-lg -mt-4"
+          >
+            <div>
+              <h2 class="font-headline-lg text-headline-lg text-on-surface">
+                Selamat datang kembali, Admin
+              </h2>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">
+                Berikut ikhtisar aktivitas laboratorium hari ini.
+              </p>
+            </div>
+          </div>
+
+          <!-- Summary Cards Grid (Bento Style) -->
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-md mb-xl">
+            <div
+              class="glass-card p-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between h-32 hover:shadow-md transition-shadow border-l-4 border-l-sky-500"
+            >
+              <div class="flex justify-between items-start">
+                <span
+                  class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                  >Total Komputer</span
+                >
+                <span class="material-symbols-outlined text-primary">devices</span>
+              </div>
+              <div class="font-headline-md text-headline-md text-primary">20</div>
+            </div>
+            <div
+              class="glass-card p-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between h-32 hover:shadow-md transition-shadow border-l-4 border-l-tertiary-fixed-dim"
+            >
+              <div class="flex justify-between items-start">
+                <span
+                  class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                  >Tersedia</span
+                >
+                <span class="material-symbols-outlined text-tertiary-container"
+                  >check_circle</span
+                >
+              </div>
+              <div
+                class="font-headline-md text-headline-md text-tertiary-container"
+              >
+                20
+              </div>
+            </div>
+            <div
+              class="glass-card p-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between h-32 hover:shadow-md transition-shadow border-l-4 border-l-error"
+            >
+              <div class="flex justify-between items-start">
+                <span
+                  class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                  >Dipinjam</span
+                >
+                <span class="material-symbols-outlined text-error">assignment_return</span>
+              </div>
+              <div class="font-headline-md text-headline-md text-error">0</div>
+            </div>
+            <div
+              class="glass-card p-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between h-32 hover:shadow-md transition-shadow border-l-4 border-l-orange-500"
+            >
+              <div class="flex justify-between items-start">
+                <span
+                  class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                  >Pemeliharaan</span
+                >
+                <span class="material-symbols-outlined text-primary-container"
+                  >build</span
+                >
+              </div>
+              <div class="font-headline-md text-headline-md text-primary-container">
+                0
+              </div>
+            </div>
+            <div
+              class="glass-card p-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between h-32 hover:shadow-md transition-shadow border-l-4 border-l-violet-500"
+            >
+              <div class="flex justify-between items-start">
+                <span
+                  class="font-label-sm text-label-sm text-on-primary-fixed uppercase tracking-wider"
+                  >Total Pinjaman</span
+                >
+                <span class="material-symbols-outlined text-primary">sync_alt</span>
+              </div>
+              <div class="font-headline-md text-headline-md">0</div>
+            </div>
+          </div>
+
+          <!-- Main Dasbor Layout -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+            <!-- Statistics Section -->
+            <div class="lg:col-span-2 flex flex-col gap-lg">
+              <section
+                class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-sm"
+              >
+                <div class="flex justify-between items-center mb-lg">
+                  <h2 class="font-headline-sm text-headline-sm text-primary">
+                    Statistik Peminjaman
+                  </h2>
+                  <div class="flex gap-sm">
+                    <button
+                      class="text-label-sm font-label-sm px-sm py-1 rounded-full bg-secondary-container text-on-secondary-container"
+                    >
+                      Minggu
+                    </button>
+                    <button
+                      class="text-label-sm font-label-sm px-sm py-1 rounded-full text-on-surface-variant hover:bg-surface-container transition-colors"
+                    >
+                      Bulan
+                    </button>
+                  </div>
+                </div>
+                <!-- Chart Placeholder -->
+                <div
+                  class="relative w-full h-64 bg-surface-container rounded-lg overflow-hidden flex items-end px-md pb-xs gap-md"
+                >
+                  <div class="w-full bg-primary h-[40%] rounded-t-sm opacity-20"></div>
+                  <div class="w-full bg-primary h-[60%] rounded-t-sm opacity-40"></div>
+                  <div class="w-full bg-primary h-[50%] rounded-t-sm opacity-30"></div>
+                  <div class="w-full bg-primary h-[85%] rounded-t-sm opacity-60"></div>
+                  <div class="w-full bg-primary h-[70%] rounded-t-sm opacity-50"></div>
+                  <div class="w-full bg-primary h-[95%] rounded-t-sm opacity-90"></div>
+                  <div class="w-full bg-primary h-[45%] rounded-t-sm opacity-40"></div>
+                </div>
+                <div
+                  class="flex justify-between mt-sm text-label-sm text-on-surface-variant font-label-sm"
+                >
+                  <span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span
+                  ><span>Jum</span><span>Sab</span><span>Min</span>
+                </div>
+              </section>
+            </div>
+
+            <!-- Recent Activity Section -->
+            <div class="lg:col-span-1">
+              <section
+                class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-sm h-full flex flex-col"
+              >
+                <div class="flex justify-between items-center mb-lg">
+                  <h2 class="font-headline-sm text-headline-sm text-primary">
+                    Aktivitas Terbaru
+                  </h2>
+                  <span
+                    class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors"
+                    >more_vert</span
+                  >
+                </div>
+                <div
+                  class="flex flex-col gap-md overflow-y-auto custom-scrollbar flex-grow"
+                >
+                  <!-- Activity Item 1 -->
+                  
+                <button
+                  class="mt-lg w-full py-2 text-center text-label-md font-label-md text-primary hover:bg-surface-container transition-colors rounded-lg border border-primary/20"
+                >
+                  Lihat Semua Aktivitas
+                </button>
+              </section>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+      class="fixed bottom-0 w-full lg:hidden z-50 bg-surface dark:bg-surface-container border-t border-outline-variant dark:border-outline shadow-lg"
+    >
+      <div class="grid grid-cols-5 gap-0">
+        <a
+          class="flex flex-col items-center justify-center text-primary bg-primary-container rounded-full px-3 py-1 tap-highlight-transparent transition-transform active:scale-95"
+          href="/dashboard"
+        >
+          <span class="material-symbols-outlined">home</span>
+          <span class="font-label-sm text-label-sm font-bold">Beranda</span>
+        </a>
+        <a
+          class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95"
+          href="/borrowers"
+        >
+          <span class="material-symbols-outlined">person</span>
+          <span class="font-label-sm text-label-sm">Peminjam</span>
+        </a>
+        <a
+          class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95"
+          href="/computers"
+        >
+          <span class="material-symbols-outlined">computer</span>
+          <span class="font-label-sm text-label-sm">Komputer</span>
+        </a>
+        <a
+          class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95"
+          href="/loanhistory"
+        >
+          <span class="material-symbols-outlined">history</span>
+          <span class="font-label-sm text-label-sm">Pinjaman</span>
+        </a>
+        <a
+          class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95"
+          href="/settings"
+        >
+          <span class="material-symbols-outlined">manage_accounts</span>
+          <span class="font-label-sm text-label-sm">Pengaturan</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- FAB (Contextual) -->
+    <a
+      class="fixed bottom-20 right-6 lg:bottom-10 lg:right-10 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl flex items-center justify-center active:scale-95 transition-transform z-50 group"
+      href="/loan"
+    >
+      <span class="material-symbols-outlined text-3xl">add</span>
+      <span
+        class="absolute right-full mr-4 bg-primary text-on-primary px-3 py-1 rounded-lg text-sm font-label-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden lg:block"
+        >Permintaan Pinjaman Baru</span
+      >
+    </a>
+
+    <script>
+      const menuBtn = document.getElementById("desktopMenuToggle");
+      const sidebar = document.getElementById("desktopNavDrawer");
+
+      if (menuBtn && sidebar) {
+        menuBtn.addEventListener("click", () => {
+          sidebar.classList.toggle("-translate-x-full");
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transaksi Peminjaman</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+        font-size: 13px;
+      }
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+      .form-section {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      input,
+      select {
+        padding: 8px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 8px 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      button.return-btn {
+        background-color: #ff9800;
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+      button.return-btn:hover {
+        background-color: #f57c00;
+      }
+      .error {
+        color: red;
+        padding: 10px;
+        background-color: #ffe6e6;
+        margin-bottom: 10px;
+        border-radius: 3px;
+      }
+      .nav {
+        margin-bottom: 20px;
+      }
+      a {
+        margin-right: 15px;
+        color: #4caf50;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .section-title {
+        color: #333;
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Transaksi Peminjaman</h1>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <!-- <a href="/pc">Data PC</a>
+        <a href="/borrower">Data Peminjam</a> -->
+      </nav>
+
+      <div th:if="${error}" class="error">
+        <strong>Error:</strong> <span th:text="${error}"></span>
+      </div>
+
+      <div class="form-section">
+        <h2>Buat Peminjaman Baru</h2>
+        <form method="post">
+          <div>
+            <select name="pcId" required>
+              <option value="">-- Pilih PC --</option>
+              <option
+                th:each="pc : ${pcs}"
+                th:value="${pc.id}"
+                th:text="${pc.kodePc + ' (' + pc.status + ')'}"></option>
+            </select>
+          </div>
+          <div>
+            <select name="borrowerId" required>
+              <option value="">-- Pilih Peminjam --</option>
+              <option
+                th:each="borrower : ${borrowers}"
+                th:value="${borrower.id}"
+                th:text="${borrower.nama + ' (' + borrower.nim + ')'}"></option>
+            </select>
+          </div>
+          <div>
+            <input
+              type="number"
+              name="durasiJam"
+              placeholder="Durasi (Jam)"
+              required />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="keperluan"
+              placeholder="Keperluan"
+              required />
+          </div>
+          <button type="submit">Buat Peminjaman</button>
+        </form>
+      </div>
+
+      <h2 class="section-title">Peminjaman Aktif</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>PC</th>
+            <th>Peminjam</th>
+            <th>Waktu Mulai</th>
+            <th>Durasi (Jam)</th>
+            <th>Keperluan</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="loan : ${activeLoan}">
+            <td th:text="${loan.id}"></td>
+            <td th:text="${loan.pc?.kodePc}"></td>
+            <td th:text="${loan.borrower?.nama}"></td>
+            <td th:text="${loan.waktuMulai}"></td>
+            <td th:text="${loan.durasiJam}"></td>
+            <td th:text="${loan.keperluan}"></td>
+            <td>
+              <form method="post" action="/loan/return" style="display: inline">
+                <input type="hidden" name="loanId" th:value="${loan.id}" />
+                <button type="submit" class="return-btn">Kembalikan</button>
+              </form>
+            </td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(activeLoan)}">
+            <td colspan="7" style="text-align: center; color: #999">
+              Tidak ada peminjaman aktif
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title">Peminjaman Selesai</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>PC</th>
+            <th>Peminjam</th>
+            <th>Waktu Mulai</th>
+            <th>Durasi (Jam)</th>
+            <th>Keperluan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="loan : ${completedLoan}">
+            <td th:text="${loan.id}"></td>
+            <td th:text="${loan.pc?.kodePc}"></td>
+            <td th:text="${loan.borrower?.nama}"></td>
+            <td th:text="${loan.waktuMulai}"></td>
+            <td th:text="${loan.durasiJam}"></td>
+            <td th:text="${loan.keperluan}"></td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(completedLoan)}">
+            <td colspan="6" style="text-align: center; color: #999">
+              Tidak ada peminjaman selesai
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+
+

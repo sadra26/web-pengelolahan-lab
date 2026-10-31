@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Manajemen Peminjam - LabManager Pro</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary": "#ffffff",
+              tertiary: "#00311f",
+              "on-tertiary-fixed": "#002113",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              error: "#ba1a1a",
+              "inverse-surface": "#213145",
+              "inverse-primary": "#b6c4ff",
+              "on-tertiary": "#ffffff",
+              "primary-container": "#1e3a8a",
+              "on-primary-fixed-variant": "#264191",
+              "surface-variant": "#d3e4fe",
+              "on-secondary-container": "#616363",
+              "tertiary-fixed-dim": "#4edea3",
+              "surface-tint": "#4059aa",
+              "surface-container-low": "#eff4ff",
+              "on-secondary-fixed": "#1a1c1c",
+              secondary: "#5d5f5f",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container-highest": "#d3e4fe",
+              outline: "#757682",
+              "primary-fixed-dim": "#b6c4ff",
+              "tertiary-fixed": "#6ffbbe",
+              "surface-dim": "#cbdbf5",
+              "secondary-container": "#dfe0e0",
+              "on-tertiary-fixed-variant": "#005236",
+              "surface-container-high": "#dce9ff",
+              "primary-fixed": "#dce1ff",
+              "outline-variant": "#c5c5d3",
+              "on-tertiary-container": "#27c38a",
+              "surface-bright": "#f8f9ff",
+              surface: "#f8f9ff",
+              "on-secondary-fixed-variant": "#454747",
+              "on-primary-container": "#90a8ff",
+              "tertiary-container": "#004a31",
+              "on-background": "#0b1c30",
+              "on-surface": "#0b1c30",
+              "error-container": "#ffdad6",
+              "secondary-fixed-dim": "#c6c6c7",
+              background: "#f8f9ff",
+              "secondary-fixed": "#e2e2e2",
+              primary: "#00236f",
+              "surface-container": "#e5eeff",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed": "#00164e",
+              "on-secondary": "#ffffff",
+              "on-surface-variant": "#444651",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              gutter: "20px",
+              xs: "4px",
+              sm: "8px",
+              lg: "24px",
+              "container-padding-desktop": "32px",
+              base: "4px",
+              "container-padding-mobile": "16px",
+              md: "16px",
+              xl: "32px",
+            },
+            fontFamily: {
+              "label-md": ["Be Vietnam Pro"],
+              "body-lg": ["Be Vietnam Pro"],
+              "headline-lg-mobile": ["Be Vietnam Pro"],
+              "headline-md": ["Be Vietnam Pro"],
+              "headline-sm": ["Be Vietnam Pro"],
+              "body-md": ["Be Vietnam Pro"],
+              "headline-lg": ["Be Vietnam Pro"],
+              "body-sm": ["Be Vietnam Pro"],
+              "label-sm": ["Be Vietnam Pro"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  letterSpacing: "0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+              "headline-lg-mobile": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "700" },
+              ],
+              "headline-md": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "600" },
+              ],
+              "headline-sm": [
+                "20px",
+                { lineHeight: "28px", fontWeight: "600" },
+              ],
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "40px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+              "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+      }
+      /* Custom scrollbar for a cleaner UI */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c5c5d3;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #757682;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  
+  <script>
+</script>
+
+  <body class="bg-background text-on-surface min-h-screen">
+  <!-- TopAppBar -->
+    <header
+      class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim text-primary dark:text-primary-fixed shadow-sm dark:shadow-none border-b border-outline-variant dark:border-outline flex items-center justify-between px-md h-16"
+    >
+      <div class="flex items-center gap-md">
+        <button
+          id="desktopMenuToggle"
+          aria-label="Toggle navigation menu"
+          aria-controls="desktopNavDrawer"
+          aria-expanded="true"
+          class="hidden lg:inline-flex material-symbols-outlined cursor-pointer p-2 hover:bg-surface-container-high rounded-full transition-colors focus:outline-none"
+        >
+          menu
+        </button>
+        <span class="font-headline-md text-headline-md font-bold"
+          >LabManager Pro</span
+        >
+      </div>
+      
+    <a href="/settings" >
+        <img
+          alt="Profile"
+          class="w-10 h-10 rounded-full border-2 border-primary-container object-cover"
+          data-alt="A professional headshot of a university administrator in a clean office setting. The man is wearing a crisp navy blazer over a light blue shirt, exuding an air of authority and competence. The background is softly blurred with hints of bookshelves and modern office architecture, illuminated by natural morning light to match a clean academic light-mode UI."
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgkIaSKTZN623on0EWRMj8WOCx1vTN3vyt5yn1bwWWd7jFlKc78jxxN5y5kfJ1-w-yc07odQtbTI-pmTelD3nsPstuqg-qlftJd0FQA9kX2Dw47MJYQhnSjdHRdDAitDzS__lXaBqOCIv1WRIownlQqdYZ5cKrca7bQc3xU3MQ7fDwXXDedhhN9weNR5eK7MrMJz39GoOLM2zE4hyZQf0i23ByHAvba3zBYIna_ujE-A1OAnHIBS9ZHgzMFDSs-MvrTsh9kx6Mh6R3"
+        />
+        </a>
+      </div>
+    </header>
+      <!-- NavigationDrawer (Desktop) -->
+      <aside
+       id="desktopNavDrawer"
+      class="fixed left-0 top-0 h-full w-[280px] flex flex-col bg-surface dark:bg-surface-container-low border-r border-outline-variant dark:border-outline shadow-md dark:shadow-none py-lg z-40 pt-20 -translate-x-full transition-transform duration-300 bg-surface border-r border-outline-variant z-40"
+      >
+        <div class="px-md mb-lg">
+          <div
+            class="flex items-center gap-md p-md bg-surface-container rounded-xl border border-outline-variant/30"
+          >
+            <div
+              class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-on-primary"
+            >
+              <span class="material-symbols-outlined">school</span>
+            </div>
+            <div>
+              <h3 class="font-label-md text-label-md text-on-surface font-bold">
+                Admin
+              </h3>
+              <p class="text-[12px] text-on-surface-variant">
+                Departemen Lab Komputer
+              </p>
+            </div>
+          </div>
+        </div>
+        <nav class="flex-1 space-y-1 px-md">
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/dashboard"
+          >
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-label-md text-label-md">Dashboard</span>
+          </a>
+          <a
+            class="flex items-center gap-md bg-secondary-container text-on-secondary-container border-l-4 border-tertiary-fixed-dim px-md py-sm rounded-xl transition-all duration-200"
+
+          href="/borrowers"
+          >
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-label-md text-label-md">Peminjam</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/computers"
+          >
+            <span class="material-symbols-outlined">computer</span>
+            <span class="font-label-md text-label-md">Komputer</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/loanhistory"
+          >
+            <span class="material-symbols-outlined">sync_alt</span>
+            <span class="font-label-md text-label-md">Pinjaman</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/settings"
+          >
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-md text-label-md">Pengaturan</span>
+          </a>
+        </nav>
+        <div class="mt-auto px-md py-md border-t border-outline-variant">
+          <p
+            class="text-[10px] uppercase tracking-widest text-outline font-bold"
+          >
+            Pusat Kampus
+          </p>
+        </div>
+      </aside>
+    <!-- Main Content Canvas -->
+    <main
+      id="mainContent"
+      class="pt-20 pb-24 lg:pb-lg lg:ml-[280px] px-container-padding-mobile lg:px-container-padding-desktop transition-all duration-200"
+    >
+      <!-- Header Section -->
+      <div
+        class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-lg"
+      >
+        <div>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface">
+            Manajemen Peminjam
+          </h2>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            Mengawasi dan mengelola akun mahasiswa dan staf universitas.
+          </p>
+        </div>
+        <button
+          id="openModalBtn"
+          class="hidden md:flex items-center gap-sm bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all active:scale-95 shadow-sm"
+        >
+          <span class="material-symbols-outlined">person_add</span>
+          Tambah Peminjam
+        </button>
+      </div>
+
+      <!-- Error Alert -->
+      <div th:if="${error}" class="mb-lg p-md bg-error-container text-on-error-container rounded-xl border border-error/20 flex items-center gap-md">
+        <span class="material-symbols-outlined text-error">error</span>
+        <span th:text="${error}" class="font-body-sm text-body-sm text-error"></span>
+      </div>
+      <!-- Search & Filter Bar -->
+      <div
+        class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant mb-lg flex flex-col sm:flex-row gap-md items-center"
+      >
+        <div class="relative w-full sm:flex-1">
+          <span
+            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline"
+            >search</span
+          >
+          <input
+            class="w-full pl-12 pr-4 py-3 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-sm text-body-sm"
+            placeholder="Cari berdasarkan nama, ID, atau departemen..."
+            type="text"
+          />
+        </div>
+        <div class="flex gap-sm w-full sm:w-auto">
+          <button
+            class="flex-1 sm:flex-none flex items-center justify-center gap-sm border border-outline-variant px-lg py-2.5 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-all"
+          >
+            <span class="material-symbols-outlined text-on-surface-variant"
+              >filter_list</span
+            >
+            Filter
+          </button>
+          <button
+            class="flex-1 sm:flex-none flex items-center justify-center gap-sm border border-outline-variant px-lg py-2.5 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-all"
+          >
+            <span class="material-symbols-outlined text-on-surface-variant"
+              >download</span
+            >
+            Ekspor
+          </button>
+        </div>
+      </div>
+      <!-- Peminjam Table/Grid -->
+      <div
+        class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden"
+      >
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead
+              class="bg-surface-container-high border-b border-outline-variant"
+            >
+              <tr>
+                <th
+                  class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                >
+                  Peminjam
+                </th>
+                <th
+                  class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                >
+                  ID Mahasiswa
+                </th>
+                <th
+                  class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                >
+                  Status
+                </th>
+                <th
+                  class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                >
+                  Departemen
+                </th>
+                <th
+                  class="px-lg py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right"
+                >
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant/30">
+              <!-- Peminjam Dinamis -->
+              <tr
+                th:each="borrower : ${borrowers}"
+                class="hover:bg-surface-container-low transition-colors group"
+              >
+                <td class="px-lg py-4">
+                  <div class="flex items-center gap-md">
+                    <div
+                      class="w-10 h-10 rounded-full bg-primary-fixed-dim text-on-primary-fixed font-bold flex items-center justify-center text-label-md"
+                      th:text="${#strings.isEmpty(borrower.nama) ? '?' : #strings.substring(borrower.nama, 0, 1).toUpperCase()}"
+                    >
+                      RH
+                    </div>
+                    <div>
+                      <p class="font-label-md text-label-md text-on-surface" th:text="${borrower.nama}">
+                        Rohit
+                      </p>
+                      <p class="text-[12px] text-on-surface-variant" th:text="${#strings.toLowerCase(#strings.replace(borrower.nama != null ? borrower.nama : 'user', ' ', '')) + '@university.edu'}">
+                        rohit@university.edu
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="px-lg py-4 font-body-sm text-body-sm text-on-surface"
+                  th:text="${borrower.nim}"
+                >
+                  241080200013
+                </td>
+                <td class="px-lg py-4">
+                  <span
+                    class="px-3 py-1 rounded-full bg-tertiary-container/20 text-on-tertiary-container font-label-sm text-label-sm"
+                    >Aktif</span
+                  >
+                </td>
+                <td
+                  class="px-lg py-4 font-body-sm text-body-sm text-on-surface"
+                >
+                  Teknik Informatika
+                </td>
+                <td class="px-lg py-4 text-right">
+                  <div class="flex items-center justify-end gap-sm">
+                    <!-- Ubah Button -->
+                    <button
+                      type="button"
+                      class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-full transition-all edit-btn"
+                      title="Ubah"
+                      th:data-id="${borrower.id}"
+                      th:data-nim="${borrower.nim}"
+                      th:data-nama="${borrower.nama}"
+                    >
+                      <span class="material-symbols-outlined">edit</span>
+                    </button>
+                    
+                    <!-- Hapus Form -->
+                    <form th:action="@{/borrowers/delete}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus peminjam ini?')" style="display: inline;">
+                      <input type="hidden" name="id" th:value="${borrower.id}" />
+                      <button
+                        type="submit"
+                        class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-all"
+                        title="Hapus"
+                      >
+                        <span class="material-symbols-outlined">delete</span>
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              <tr th:if="${#lists.isEmpty(borrowers)}">
+                <td colspan="5" class="px-lg py-8 text-center text-on-surface-variant font-body-sm">
+                  Belum ada data peminjam.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Pagination -->
+        <div
+          class="px-lg py-4 bg-surface-container-low flex items-center justify-between border-t border-outline-variant"
+        >
+          <p class="font-label-sm text-label-sm text-on-surface-variant">
+            Data Tidak Sesuai, mohon cari data yang lain
+          </p>
+          <div class="flex items-center gap-sm">
+            <button
+              class="p-2 hover:bg-surface-container-highest rounded-lg disabled:opacity-30"
+              disabled=""
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button
+              class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-on-primary font-label-sm text-label-sm"
+            >
+              1
+            </button>
+            <button
+              class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-highest font-label-sm text-label-sm"
+            >
+              2
+            </button>
+            <button
+              class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-highest font-label-sm text-label-sm"
+            >
+              3
+            </button>
+            <button class="p-2 hover:bg-surface-container-highest rounded-lg">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- FAB for Mobile -->
+    <button
+      id="openModalFab"
+      class="lg:hidden fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform z-50"
+    >
+      <span
+        class="material-symbols-outlined"
+        style="font-variation-settings: 'wght' 600"
+        >add</span
+      >
+    </button>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+      class="fixed bottom-0 w-full lg:hidden z-50 bg-surface dark:bg-surface-container border-t border-outline-variant dark:border-outline shadow-lg"
+    >
+      <div class="grid grid-cols-5 gap-0">
+        <a
+          class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95"
+          href="/dashboard"
+        >
+          <span class="material-symbols-outlined">home</span>
+          <span class="font-label-sm text-label-sm">Beranda</span>
+        </a>
+        <a
+          class="flex flex-col items-center justify-center text-primary bg-primary-container rounded-full px-3 py-1 tap-highlight-transparent transition-transform active:scale-95"
+          href="/borrowers"
+        >
+          <span class="material-symbols-outlined">person</span>
+          <span class="font-label-sm text-label-sm font-bold">Peminjam</span>
+        </a>
+        <a
+          class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95"
+          href="/computers"
+        >
+          <span class="material-symbols-outlined">computer</span>
+          <span class="font-label-sm text-label-sm">Komputer</span>
+        </a>
+        <a
+          class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95"
+          href="/loanhistory"
+        >
+          <span class="material-symbols-outlined">history</span>
+          <span class="font-label-sm text-label-sm">Pinjaman</span>
+        </a>
+        <a
+          class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95"
+          href="/settings"
+        >
+          <span class="material-symbols-outlined">manage_accounts</span>
+          <span class="font-label-sm text-label-sm">Pengaturan</span>
+        </a>
+      </div>
+    </nav>
+    <script>
+      // Simple search interactivity simulation
+      const searchInput = document.querySelector('input[type="text"]');
+      searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll("tbody tr:not(.opacity-60)");
+
+        rows.forEach((row) => {
+          const text = row.innerText.toLowerCase();
+          row.style.display = text.includes(query) ? "" : "none";
+        });
+      });
+
+      // Add micro-interaction for rows
+      document.querySelectorAll("tbody tr").forEach((row) => {
+        row.addEventListener("click", (e) => {
+          // Prevent action if clicking a button
+          if (e.target.closest("button")) return;
+
+          // Visual feedback
+          row.classList.add("bg-primary-container/10");
+          setTimeout(
+            () => row.classList.remove("bg-primary-container/10"),
+            300
+          );
+        });
+      });
+    </script>
+ <script>
+const menuBtn = document.getElementById("desktopMenuToggle");
+const sidebar = document.getElementById("desktopNavDrawer");
+
+menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("-translate-x-full");
+});
+    </script>
+
+    <!-- Modal Tambah Peminjam -->
+    <div id="addBorrowerModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center p-4">
+      <div class="bg-surface dark:bg-surface-container-high rounded-2xl shadow-xl border border-outline-variant max-w-md w-full overflow-hidden transform transition-all p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-headline-md text-headline-md text-on-surface">Tambah Peminjam Baru</h3>
+          <button id="closeModalBtn" class="text-on-surface-variant hover:text-on-surface p-1 rounded-full hover:bg-surface-container transition-all">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        
+        <form th:action="@{/borrowers}" method="post" class="space-y-4">
+          <div>
+            <label for="nim" class="block font-label-md text-label-md text-on-surface-variant mb-1">NIM / ID Mahasiswa</label>
+            <input type="text" id="nim" name="nim" required placeholder="Masukkan NIM (contoh: 241080200013)" 
+                   class="w-full px-3 py-2 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md text-body-md" />
+          </div>
+          <div>
+            <label for="nama" class="block font-label-md text-label-md text-on-surface-variant mb-1">Nama Lengkap</label>
+            <input type="text" id="nama" name="nama" required placeholder="Masukkan Nama Lengkap" 
+                   class="w-full px-3 py-2 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md text-body-md" />
+          </div>
+          
+          <div class="flex justify-end gap-md pt-2">
+            <button type="button" id="cancelModalBtn" class="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-surface-container transition-all">
+              Batal
+            </button>
+            <button type="submit" class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary-container transition-all">
+              Tambah
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Edit Peminjam -->
+    <div id="editBorrowerModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center p-4">
+      <div class="bg-surface dark:bg-surface-container-high rounded-2xl shadow-xl border border-outline-variant max-w-md w-full overflow-hidden transform transition-all p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-headline-md text-headline-md text-on-surface">Ubah Peminjam</h3>
+          <button id="closeEditModalBtn" class="text-on-surface-variant hover:text-on-surface p-1 rounded-full hover:bg-surface-container transition-all">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        
+        <form th:action="@{/borrowers/edit}" method="post" class="space-y-4">
+          <input type="hidden" id="edit-id" name="id" />
+          <div>
+            <label for="edit-nim" class="block font-label-md text-label-md text-on-surface-variant mb-1">NIM / ID Mahasiswa</label>
+            <input type="text" id="edit-nim" name="nim" required placeholder="Masukkan NIM" 
+                   class="w-full px-3 py-2 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md text-body-md" />
+          </div>
+          <div>
+            <label for="edit-nama" class="block font-label-md text-label-md text-on-surface-variant mb-1">Nama Lengkap</label>
+            <input type="text" id="edit-nama" name="nama" required placeholder="Masukkan Nama Lengkap" 
+                   class="w-full px-3 py-2 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md text-body-md" />
+          </div>
+          
+          <div class="flex justify-end gap-md pt-2">
+            <button type="button" id="cancelEditModalBtn" class="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-surface-container transition-all">
+              Batal
+            </button>
+            <button type="submit" class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary-container transition-all">
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Modal functionality
+      const addBorrowerModal = document.getElementById("addBorrowerModal");
+      const openModalBtn = document.getElementById("openModalBtn");
+      const openModalFab = document.getElementById("openModalFab");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const cancelModalBtn = document.getElementById("cancelModalBtn");
+
+      function openModal() {
+        addBorrowerModal.classList.remove("hidden");
+        document.getElementById("nim").focus();
+      }
+
+      function closeModal() {
+        addBorrowerModal.classList.add("hidden");
+      }
+
+      if (openModalBtn) openModalBtn.addEventListener("click", openModal);
+      if (openModalFab) openModalFab.addEventListener("click", openModal);
+      if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+      if (cancelModalBtn) cancelModalBtn.addEventListener("click", closeModal);
+
+      // Close modal on clicking overlay
+      addBorrowerModal.addEventListener("click", (e) => {
+        if (e.target === addBorrowerModal) {
+          closeModal();
+        }
+      });
+
+      // Edit modal functionality
+      const editBorrowerModal = document.getElementById("editBorrowerModal");
+      const closeEditModalBtn = document.getElementById("closeEditModalBtn");
+      const cancelEditModalBtn = document.getElementById("cancelEditModalBtn");
+      
+      const editIdInput = document.getElementById("edit-id");
+      const editNimInput = document.getElementById("edit-nim");
+      const editNamaInput = document.getElementById("edit-nama");
+
+      document.querySelectorAll(".edit-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          const nim = btn.getAttribute("data-nim");
+          const nama = btn.getAttribute("data-nama");
+
+          editIdInput.value = id;
+          editNimInput.value = nim;
+          editNamaInput.value = nama;
+
+          editBorrowerModal.classList.remove("hidden");
+        });
+      });
+
+      function closeEditModal() {
+        editBorrowerModal.classList.add("hidden");
+      }
+
+      if (closeEditModalBtn) closeEditModalBtn.addEventListener("click", closeEditModal);
+      if (cancelEditModalBtn) cancelEditModalBtn.addEventListener("click", closeEditModal);
+
+      editBorrowerModal.addEventListener("click", (e) => {
+        if (e.target === editBorrowerModal) {
+          closeEditModal();
+        }
+      });
+    </script>
+  </body>
+</html>

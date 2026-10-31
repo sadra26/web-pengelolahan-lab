@@ -1,0 +1,201 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Daftar - LabManager Pro</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+
+    <!-- Material Icon -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet" />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      html, body {
+        height: auto;
+        min-height: 100%;
+      }
+
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+      }
+
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+
+      /* Fixed background layer so it doesn't scroll away, sits behind content */
+      .bg-fixed-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen flex justify-center items-start sm:items-center relative bg-slate-100 overflow-y-auto">
+    <!-- Background -->
+    <div class="bg-fixed-layer">
+      <img
+        class="w-full h-full object-cover"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtu5nOX-bslpeFaymwlAlG7JHa-1cOupO3XbZaTS5MFkU5ISCxniQxmlq5rZzJeOE6K6N1zGZicm8gmH_Suolkboej9q_WEYjdPgG8MzPqx65jKJo6Zv5GITQVLNUI8fNi254L9rILsWChce8QMCZIDpKTfZtEckXRRiYDiH19NSrbek5d6qA72S7dkxVrg1Po8KCILfzCX40APmoV7x0QmwvowUcj_epZgKUyaibkMWkbaYPgl1HQftc0vqVu_DPcqMNDo4_gPeZL" />
+
+      <div class="absolute inset-0 bg-blue-900/10 backdrop-blur-[2px]"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-md px-5 py-10">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <div class="w-10 h-10 rounded-xl bg-white shadow mx-auto mb-4"></div>
+
+        <h1 class="text-5xl font-bold text-blue-900">LabManager UMSIDA</h1>
+
+        <p class="text-gray-600 mt-2">Sistem Manajemen Aset Akademik</p>
+      </div>
+
+      <!-- Card -->
+      <div class="glass-card rounded-2xl shadow-xl p-8">
+        <h2 class="text-3xl font-bold text-slate-800">Daftar</h2>
+
+        <p class="text-gray-500 mt-2 mb-6">
+          Buat akun baru untuk mengakses sistem laboratorium
+        </p>
+
+        <form action="/register" method="post" class="space-y-4">
+          <!-- Nama -->
+          <div>
+            <label class="font-semibold"> Nama Lengkap </label>
+
+            <div class="relative mt-1">
+              <span
+                class="material-symbols-outlined absolute left-3 top-3 text-gray-500">
+                badge
+              </span>
+
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Masukkan nama lengkap"
+                class="w-full border rounded-lg py-3 pl-11 pr-4 focus:ring-2 focus:ring-blue-800 outline-none" />
+            </div>
+          </div>
+
+          <!-- Username -->
+          <div>
+            <label class="font-semibold"> Username / NIM </label>
+
+            <div class="relative mt-1">
+              <span
+                class="material-symbols-outlined absolute left-3 top-3 text-gray-500">
+                person
+              </span>
+
+              <input
+                type="text"
+                name="username"
+                required
+                placeholder="Masukkan Username / NIM"
+                class="w-full border rounded-lg py-3 pl-11 pr-4 focus:ring-2 focus:ring-blue-800 outline-none" />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <label class="font-semibold"> Password </label>
+
+            <div class="relative mt-1">
+              <span
+                class="material-symbols-outlined absolute left-3 top-3 text-gray-500">
+                lock
+              </span>
+
+              <input
+                id="password"
+                type="password"
+                name="password"
+                required
+                placeholder="••••••••"
+                class="w-full border rounded-lg py-3 pl-11 pr-11 focus:ring-2 focus:ring-blue-800 outline-none" />
+
+              <button
+                type="button"
+                id="togglePassword"
+                class="absolute right-3 top-3">
+                <span class="material-symbols-outlined"> visibility </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Konfirmasi Password -->
+          <div>
+            <label class="font-semibold"> Konfirmasi Password </label>
+
+            <div class="relative mt-1">
+              <span
+                class="material-symbols-outlined absolute left-3 top-3 text-gray-500">
+                lock_reset
+              </span>
+
+              <input
+                id="confirmPassword"
+                type="password"
+                name="confirmPassword"
+                required
+                placeholder="Ulangi Password"
+                class="w-full border rounded-lg py-3 pl-11 pr-11 focus:ring-2 focus:ring-blue-800 outline-none" />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-blue-900 hover:bg-blue-800 text-white py-3 rounded-lg font-semibold transition">
+            Daftar
+          </button>
+        </form>
+
+        <div class="text-center mt-6">
+          Sudah punya akun?
+
+          <a href="/login" class="text-blue-900 font-semibold hover:underline">
+            Masuk
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const password = document.getElementById("password");
+      const btn = document.getElementById("togglePassword");
+
+      btn.onclick = function () {
+        if (password.type === "password") {
+          password.type = "text";
+          btn.innerHTML =
+            "<span class='material-symbols-outlined'>visibility_off</span>";
+        } else {
+          password.type = "password";
+          btn.innerHTML =
+            "<span class='material-symbols-outlined'>visibility</span>";
+        }
+      };
+    </script>
+  </body>
+</html>

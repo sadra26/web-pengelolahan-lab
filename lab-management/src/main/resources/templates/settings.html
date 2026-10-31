@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pengaturan - LabManager Pro</title>
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-tint": "#4059aa",
+              background: "#f8f9ff",
+              "inverse-on-surface": "#eaf1ff",
+              secondary: "#5d5f5f",
+              "on-primary-fixed": "#00164e",
+              "on-tertiary-fixed": "#002113",
+              "on-secondary-container": "#616363",
+              "error-container": "#ffdad6",
+              "tertiary-fixed-dim": "#4edea3",
+              "surface-bright": "#f8f9ff",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#d3e4fe",
+              "surface-container-high": "#dce9ff",
+              "surface-container-low": "#eff4ff",
+              "on-tertiary-container": "#27c38a",
+              "surface-dim": "#cbdbf5",
+              "primary-container": "#1e3a8a",
+              "on-secondary-fixed": "#1a1c1c",
+              "on-primary-fixed-variant": "#264191",
+              tertiary: "#00311f",
+              "on-primary": "#ffffff",
+              surface: "#f8f9ff",
+              "on-tertiary-fixed-variant": "#005236",
+              "tertiary-fixed": "#6ffbbe",
+              "on-secondary-fixed-variant": "#454747",
+              error: "#ba1a1a",
+              "on-secondary": "#ffffff",
+              "on-surface": "#0b1c30",
+              "on-background": "#0b1c30",
+              "on-error": "#ffffff",
+              "tertiary-container": "#004a31",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed-dim": "#b6c4ff",
+              "secondary-fixed-dim": "#c6c6c7",
+              "on-error-container": "#93000a",
+              "on-primary-container": "#90a8ff",
+              "outline-variant": "#c5c5d3",
+              primary: "#00236f",
+              "on-surface-variant": "#444651",
+              "secondary-container": "#dfe0e0",
+              "secondary-fixed": "#e2e2e2",
+              "inverse-primary": "#b6c4ff",
+              "surface-container-highest": "#d3e4fe",
+              outline: "#757682",
+              "inverse-surface": "#213145",
+              "surface-container": "#e5eeff",
+              "primary-fixed": "#dce1ff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xs: "4px",
+              gutter: "20px",
+              lg: "24px",
+              "container-padding-mobile": "16px",
+              base: "4px",
+              sm: "8px",
+              md: "16px",
+              "container-padding-desktop": "32px",
+              xl: "32px",
+            },
+            fontFamily: {
+              "headline-lg": ["Be Vietnam Pro"],
+              "body-lg": ["Be Vietnam Pro"],
+              "label-md": ["Be Vietnam Pro"],
+              "body-md": ["Be Vietnam Pro"],
+              "label-sm": ["Be Vietnam Pro"],
+              "headline-lg-mobile": ["Be Vietnam Pro"],
+              "headline-md": ["Be Vietnam Pro"],
+              "body-sm": ["Be Vietnam Pro"],
+              "headline-sm": ["Be Vietnam Pro"],
+            },
+            fontSize: {
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "40px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  letterSpacing: "0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+              "headline-lg-mobile": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "700" },
+              ],
+              "headline-md": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "600" },
+              ],
+              "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+              "headline-sm": [
+                "20px",
+                { lineHeight: "28px", fontWeight: "600" },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background-color: #f8f9ff;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      .sidebar-active {
+        border-left: 4px solid #4edea3;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #d3e4fe;
+        border-radius: 10px;
+      }
+      .settings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 24px;
+      }
+    </style>
+  </head>
+
+  <body class="text-on-surface">
+    <!-- TopAppBar -->
+    <header
+      class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim text-primary dark:text-primary-fixed shadow-sm dark:shadow-none border-b border-outline-variant dark:border-outline flex items-center justify-between px-md h-16"
+    >
+      <div class="flex items-center gap-md">
+        <button id="desktopMenuToggle"
+          aria-label="Toggle navigation menu"
+          aria-controls="desktopNavDrawer"
+          aria-expanded="true"
+          class="inline-flex material-symbols-outlined cursor-pointer p-2 hover:bg-surface-container-high rounded-full transition-colors focus:outline-none"
+        >
+          menu
+        </button>
+        <span class="font-headline-md text-headline-md font-bold"
+          >LabManager Pro</span
+        >
+      </div>
+    </header>
+    <div class="flex pt-16 min-h-screen">
+      <!-- NavigationDrawer (Desktop) -->
+      <aside
+       id="desktopNavDrawer"
+      class="fixed left-0 top-0 h-full w-[280px] flex flex-col bg-surface dark:bg-surface-container-low border-r border-outline-variant dark:border-outline shadow-md dark:shadow-none py-lg z-40 pt-20 -translate-x-full transition-transform duration-300 bg-surface border-r border-outline-variant z-40"
+      >
+        <div class="px-md mb-lg">
+          <div
+            class="flex items-center gap-md p-md bg-surface-container rounded-xl border border-outline-variant/30"
+          >
+            <div
+              class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-on-primary"
+            >
+              <span class="material-symbols-outlined">school</span>
+            </div>
+            <div>
+              <h3 class="font-label-md text-label-md text-on-surface font-bold" th:text="${user != null ? user.name : 'Admin'}">
+                Admin
+              </h3>
+              <p class="text-[12px] text-on-surface-variant">
+                Departemen Lab Komputer
+              </p>
+            </div>
+          </div>
+        </div>
+        <nav class="flex-1 space-y-1 px-md">
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/dashboard"
+          >
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-label-md text-label-md">Dashboard</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/borrowers"
+          >
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-label-md text-label-md">Peminjam</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/computers"
+          >
+            <span class="material-symbols-outlined">computer</span>
+            <span class="font-label-md text-label-md">Komputer</span>
+          </a>
+          <a
+            class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-highest px-md py-sm rounded-xl transition-all duration-200"
+            href="/loanhistory"
+          >
+            <span class="material-symbols-outlined">sync_alt</span>
+            <span class="font-label-md text-label-md">Pinjaman</span>
+          </a>
+          <a
+            class="flex items-center gap-md bg-secondary-container text-on-secondary-container border-l-4 border-tertiary-fixed-dim px-md py-sm rounded-xl transition-all duration-200"
+            href="/settings"
+          >
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-md text-label-md">Pengaturan</span>
+          </a>
+        </nav>
+        <div class="mt-auto px-md py-md border-t border-outline-variant">
+          <p
+            class="text-[10px] uppercase tracking-widest text-outline font-bold"
+          >
+            Pusat Kampus
+          </p>
+        </div>
+      </aside>
+      <!-- Main Canvas -->
+      <main id="mainContent" class="pt-24 pb-24 lg:pb-8 lg:ml-[280px] px-container-padding-mobile lg:px-container-padding-desktop bg-background min-h-screen transition-all duration-200">
+        <div class="max-w-7xl mx-auto p-container-padding-mobile lg:p-container-padding-desktop space-y-lg">
+          <div class="mb-lg">
+            <h1 class="font-headline-lg text-headline-lg text-primary">
+              Pengaturan
+            </h1>
+            <p class="text-body-md text-on-surface-variant">
+              Kelola preferensi administratif dan keamanan laboratorium Anda.
+            </p>
+          </div>
+
+          <!-- Semua kartu pengaturan yang punya input untuk disimpan
+               (Profil Pengguna) dibungkus SATU form yang benar penutupannya -->
+          <form action="/settings" method="post">
+            <div class="settings-grid">
+              <!-- Profil Pengguna Card -->
+              <div
+                class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_12px_rgba(0,35,111,0.08)] border border-outline-variant flex flex-col gap-md"
+              >
+                <div class="flex items-center justify-between">
+                  <h2
+                    class="font-headline-sm text-headline-sm text-primary flex items-center gap-sm"
+                  >
+                    <span class="material-symbols-outlined">person</span>
+                    Profil Pengguna
+                  </h2>
+                  <button type="button" class="text-primary font-label-md hover:underline">
+                    Ubah Avatar
+                  </button>
+                </div>
+                <div
+                  class="flex items-center gap-md p-md bg-surface-container-low rounded-lg"
+                >
+                  <div class="relative">
+                    <img
+                      class="w-16 h-16 rounded-full border-2 border-primary object-cover"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbWFTL_PlJXAGy2LBA5D7o9NTuCJkL_CG0f7KmszV8ipi4LPg6wXr2h-YwoKIfyhPfkIgt8PGREsJltrXgQ5XmiBL_fcrOq2JaBWie3G9OoDgBagwdW1Qmgkf814V9PiCDIlcCL0J7c9foHoEp_Vg75PzmvG-gvBu0iPURtICciXLzjCMVDQsXxjjHJluEFmD2IvP53-tH60hspW4EL-Z8yM1XWWM9-QgXVpzh2sK9dkmVm7qbyERKvrfifKrSwS8iKL4H3pRXtMUg"
+                    />
+                    <div
+                      class="absolute bottom-0 right-0 bg-primary text-white p-xs rounded-full border-2 border-surface-container-lowest"
+                    >
+                      <span class="material-symbols-outlined !text-[12px]"
+                        >camera_alt</span
+                      >
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-headline-sm text-primary" th:text="${user != null ? user.name : ''}">Admin</h3>
+                    <p class="text-body-sm text-on-surface-variant">
+                      Administrator
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-md">
+                  <div class="flex flex-col gap-xs">
+                    <label class="font-label-md text-on-surface-variant">
+                      Nama Lengkap
+                    </label>
+                    <input
+                      class="w-full rounded-lg border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary px-md py-sm bg-surface"
+                      type="text"
+                      name="name"
+                      th:value="${user != null ? user.name : ''}"
+                    />
+                  </div>
+                  <div class="flex flex-col gap-xs">
+                    <label class="font-label-md text-on-surface-variant"
+                      >Alamat Email</label
+                    >
+                    <input
+                      class="w-full rounded-lg border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary px-md py-sm bg-surface"
+                      type="email"
+                      name="email"
+                      th:value="${user != null ? user.email : ''}"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Konfigurasi Lab Card -->
+              <div
+                class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_12px_rgba(0,35,111,0.08)] border border-outline-variant flex flex-col gap-md"
+              >
+                <h2
+                  class="font-headline-sm text-headline-sm text-primary flex items-center gap-sm"
+                >
+                  <span class="material-symbols-outlined"
+                    >settings_input_component</span
+                  >
+                  Konfigurasi Lab
+                </h2>
+                <div class="space-y-md">
+                  <div class="flex flex-col gap-xs">
+                    <label class="font-label-md text-on-surface-variant"
+                      >Nama Lab</label
+                    >
+                    <input
+                      class="w-full rounded-lg border-outline-variant focus:border-primary px-md py-sm bg-surface"
+                      type="text"
+                      value="Lab Komputer Universitas"
+                    />
+                  </div>
+                  <div class="grid grid-cols-2 gap-md">
+                    <div class="flex flex-col gap-xs">
+                      <label class="font-label-md text-on-surface-variant"
+                        >Durasi Pinjaman Default</label
+                      >
+                      <select
+                        class="w-full rounded-lg border-outline-variant focus:border-primary px-md py-sm bg-surface"
+                      >
+                        <option>24 Jam</option>
+                        <option selected="">48 Jam</option>
+                        <option>72 Jam</option>
+                      </select>
+                    </div>
+                    <div class="flex flex-col gap-xs">
+                      <label class="font-label-md text-on-surface-variant"
+                        >Maks. Pinjaman Bersamaan</label
+                      >
+                      <input
+                        class="w-full rounded-lg border-outline-variant focus:border-primary px-md py-sm bg-surface"
+                        type="number"
+                        value="5"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="mt-md p-md bg-tertiary-container text-tertiary-fixed rounded-lg border border-tertiary-fixed-dim/20 flex items-start gap-sm"
+                >
+                  <span class="material-symbols-outlined">info</span>
+                  <p class="text-xs">
+                    Pengaturan sistem berlaku secara global untuk semua
+                    workstation dan terminal client yang terhubung.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Notifikasi Card -->
+              <div
+                class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_12px_rgba(0,35,111,0.08)] border border-outline-variant"
+              >
+                <h2
+                  class="font-headline-sm text-headline-sm text-primary flex items-center gap-sm mb-lg"
+                >
+                  <span class="material-symbols-outlined"
+                    >notifications_active</span
+                  >
+                  Notifikasi
+                </h2>
+                <div class="space-y-sm">
+                  <label
+                    class="flex items-center justify-between p-md hover:bg-surface-container transition-colors rounded-xl cursor-pointer"
+                  >
+                    <div>
+                      <p class="font-label-md text-on-surface">
+                        Peringatan Pinjaman Baru
+                      </p>
+                      <p class="text-xs text-on-surface-variant">
+                        Beritahu saat pengguna memulai pinjaman
+                      </p>
+                    </div>
+                    <div class="relative inline-flex items-center cursor-pointer">
+                      <input checked="" class="sr-only peer" type="checkbox" />
+                      <div
+                        class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
+                      ></div>
+                    </div>
+                  </label>
+                  <label
+                    class="flex items-center justify-between p-md hover:bg-surface-container transition-colors rounded-xl cursor-pointer"
+                  >
+                    <div>
+                      <p class="font-label-md text-on-surface">
+                        Pengingat Keterlambatan
+                      </p>
+                      <p class="text-xs text-on-surface-variant">
+                        Kirim peringatan otomatis untuk pengembalian terlambat
+                      </p>
+                    </div>
+                    <div class="relative inline-flex items-center cursor-pointer">
+                      <input checked="" class="sr-only peer" type="checkbox" />
+                      <div
+                        class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
+                      ></div>
+                    </div>
+                  </label>
+                  <label
+                    class="flex items-center justify-between p-md hover:bg-surface-container transition-colors rounded-xl cursor-pointer"
+                  >
+                    <div>
+                      <p class="font-label-md text-on-surface">
+                        Pemeliharaan Sistem
+                      </p>
+                      <p class="text-xs text-on-surface-variant">
+                        Peringatan untuk pembaruan sistem yang tertunda
+                      </p>
+                    </div>
+                    <div class="relative inline-flex items-center cursor-pointer">
+                      <input class="sr-only peer" type="checkbox" />
+                      <div
+                        class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
+                      ></div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Akun & Keamanan Card -->
+              <div
+                class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_12px_rgba(0,35,111,0.08)] border border-outline-variant flex flex-col"
+              >
+                <h2
+                  class="font-headline-sm text-headline-sm text-primary flex items-center gap-sm mb-lg"
+                >
+                  <span class="material-symbols-outlined">security</span>
+                  Akun &amp; Keamanan
+                </h2>
+                <div class="flex-1 space-y-xs">
+                  <button type="button" class="w-full flex items-center justify-between p-md hover:bg-surface-container transition-colors rounded-xl text-left group"
+                  >
+                    <div class="flex items-center gap-md">
+                      <span class="material-symbols-outlined text-primary"
+                        >key</span
+                      >
+                      <div>
+                        <p class="font-label-md text-on-surface">
+                          Ubah Kata Sandi
+                        </p>
+                        <p class="text-xs text-on-surface-variant">
+                          Perbarui kredensial masuk Anda
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity"
+                      >chevron_right</span
+                    >
+                  </button>
+                </div>
+                <div
+                  class="mt-xl pt-lg border-t border-outline-variant flex items-center justify-between"
+                >
+                  <a href="/logout"
+                    class="flex items-center gap-sm text-error font-label-md hover:bg-error-container/20 px-md py-sm rounded-lg transition-colors"
+                  >
+                    <span class="material-symbols-outlined">logout</span>
+                    Keluar dari Sesi
+                  </a>
+                  <button
+                    type="submit"
+                    class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md shadow-sm active:scale-95 transition-transform"
+                  >
+                    Simpan Perubahan
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <!-- System Footer -->
+          <footer
+            class="mt-xl py-lg border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-md opacity-70"
+          >
+            <div class="flex items-center gap-md">
+              <div class="flex items-center gap-xs">
+                <span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+                <span class="text-xs font-label-sm text-on-surface-variant"
+                  >Sinkronisasi Database: Aktif</span
+                >
+              </div>
+              <div class="h-4 w-[1px] bg-outline-variant"></div>
+              <span class="text-xs font-label-sm text-on-surface-variant"
+                >Konektivitas Cloud: 12ms</span
+              >
+            </div>
+            <div class="text-xs font-label-sm text-on-surface-variant">
+              © 2024 LabManager Pro • v2.4.1-stabil • Lab Sentral Universitas
+            </div>
+          </footer>
+        </div>
+      </main>
+    </div>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="fixed bottom-0 w-full lg:hidden z-50 bg-surface dark:bg-surface-container border-t border-outline-variant dark:border-outline shadow-lg">
+      <div class="grid grid-cols-5 gap-0">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95" href="/dashboard">
+          <span class="material-symbols-outlined">home</span>
+          <span class="font-label-sm text-label-sm">Beranda</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95" href="/borrowers">
+          <span class="material-symbols-outlined">person</span>
+          <span class="font-label-sm text-label-sm">Peminjam</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95" href="/computers">
+          <span class="material-symbols-outlined">computer</span>
+          <span class="font-label-sm text-label-sm">Komputer</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95" href="/loanhistory">
+          <span class="material-symbols-outlined">history</span>
+          <span class="font-label-sm text-label-sm">Pinjaman</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant tap-highlight-transparent px-2 py-2 transition-transform active:scale-95" href="/settings">
+          <span class="material-symbols-outlined">manage_accounts</span>
+          <span class="font-label-sm text-label-sm">Pengaturan</span>
+        </a>
+      </div>
+    </nav>
+    <script>
+      // Micro-interactions and effects
+      document.querySelectorAll("input, select").forEach((input) => {
+        input.addEventListener("focus", () => {
+          input.parentElement.classList.add("scale-[1.01]");
+          input.parentElement.style.transition = "all 0.2s ease-out";
+        });
+        input.addEventListener("blur", () => {
+          input.parentElement.classList.remove("scale-[1.01]");
+        });
+      });
+
+      // Toggle Switch functionality (Visual only)
+      document.querySelectorAll('input[type="checkbox"]').forEach((toggle) => {
+        toggle.addEventListener("change", function () {
+          const label = this.closest("label");
+          if (this.checked) {
+            label.classList.add("bg-surface-container");
+          } else {
+            label.classList.remove("bg-surface-container");
+          }
+        });
+      });
+    </script>
+    <script>
+      const menuBtn = document.getElementById("desktopMenuToggle");
+      const sidebar = document.getElementById("desktopNavDrawer");
+
+      menuBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("-translate-x-full");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data PC</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+      .form-section {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      input,
+      select {
+        padding: 8px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 8px 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .error {
+        color: red;
+        padding: 10px;
+        background-color: #ffe6e6;
+        margin-bottom: 10px;
+        border-radius: 3px;
+      }
+      .nav {
+        margin-bottom: 20px;
+      }
+      a {
+        margin-right: 15px;
+        color: #4caf50;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Data PC</h1>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <!-- <a href="/borrower">Data Peminjam</a>
+        <a href="/loan">Peminjaman</a> -->
+      </nav>
+
+      <div th:if="${error}" class="error">
+        <strong>Error:</strong> <span th:text="${error}"></span>
+      </div>
+
+      <div class="form-section">
+        <h2>Tambah PC Baru</h2>
+        <form method="post">
+          <div>
+            <input type="text" name="kodePc" placeholder="Kode PC" required />
+          </div>
+          <div>
+            <select name="status">
+              <option value="">-- Pilih Status (Optional) --</option>
+              <option
+                th:each="status : ${statuses}"
+                th:value="${status}"
+                th:text="${status}"></option>
+            </select>
+          </div>
+          <button type="submit">Tambah</button>
+        </form>
+      </div>
+
+      <h2>Daftar PC</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Kode PC</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="pc : ${pcs}">
+            <td th:text="${pc.id}"></td>
+            <td th:text="${pc.kodePc}"></td>
+            <td th:text="${pc.status}"></td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(pcs)}">
+            <td colspan="3" style="text-align: center; color: #999">
+              Tidak ada data PC
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+
+
